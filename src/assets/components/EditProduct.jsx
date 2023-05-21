@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Button, Row, Col, Card } from 'react-bootstrap'
 import axios from 'axios'
 import Swal from 'sweetalert2'
@@ -16,25 +16,27 @@ function EditProduct() {
     const [image, setImage] = useState();
     const [validationError, setValidationError] = useState({});
     const [cImageName, setCurrentImage] = useState("");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchProduct();
-    },[]);
+    }, []);
 
-    
 
-    const fetchProduct = async() => {
-        await axios.get(`https://jacknboybackend.000webhostapp.com/api/products/${id}`).then(({data}) => {
-            const {title, description , price , discount ,image} = data.product;
+
+    const fetchProduct = async () => {
+        await axios.get(`https://jacknboybackend.000webhostapp.com/api/products/${id}`).then(({ data }) => {
+            const { title, description, price, discount, image } = data.product;
             setTitle(title);
             setDescription(description);
             setPrice(price);
             setDiscount(discount);
             setImage(image);
-            setCurrentImage(`https://jacknboybackend.000webhostapp.com/storage/product/image/`+image);
-        
-            
-        }).catch(({response:{data}}) => {
+            setCurrentImage(`https://jacknboybackend.000webhostapp.com/storage/product/image/` + image);
+            setLoading(false);
+
+
+        }).catch(({ response: { data } }) => {
             Swal.fire({
                 text: data.message,
                 icon: "error"
@@ -61,114 +63,127 @@ function EditProduct() {
 
         console.log(formData);
         Swal.fire({
-            icon:"info",
-            text:"Uploading...",
+            icon: "info",
+            text: "Uploading...",
             showCancelButton: false,
             showConfirmButton: false
         })
 
-        await axios.post(`https://jacknboybackend.000webhostapp.com/api/products/${id}`,formData).then(({data}) =>{
+        await axios.post(`https://jacknboybackend.000webhostapp.com/api/products/${id}`, formData).then(({ data }) => {
             Swal.fire({
-                icon:"success",
+                icon: "success",
                 text: data.message
             })
             navigate("/")
-        }).catch(({response})=> {
+        }).catch(({ response }) => {
             if (response.status === 422) {
                 setValidationError(response.data.error)
-            }else{
+            } else {
                 Swal.fire({
                     text: response.data.error,
-                    icon:"error"
+                    icon: "error"
                 })
             }
         })
 
     }
 
-  return (
-    <div className='contanier'>
-        <div className="row">
-            <div className="col-lg-6 col-xl-6 col-sm-12 col-md-6">
-                <div className="card shadow">
-                    <div className="card-header">
-                        Edit item
-                    </div>
-                    <div className="card-body">
-                        <div className="form-warpper">
-                            {Object.keys(validationError).lenght > 0 && (
-                                <div className="row">
-                                    <div className="col-12">
-                                        <div className="alert alert-danger">
-                                            <ul className="mb-0">
-                                                {Object.entries(validationError).map(([key, value]) =>(
-                                                    <li key={key}>{value}</li>
-                                                ))}
-                                            </ul>
+    return (
+        <div className='contanier'>
+            <div className="row">
+                <div className="col-lg-6 col-xl-6 col-sm-12 col-md-6">
+                    <div className="card shadow">
+                        <div className="card-header">
+                            Edit item
+                        </div>
+                        <div className="card-body">
+                            <div className="form-warpper">
+                                {Object.keys(validationError).lenght > 0 && (
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <div className="alert alert-danger">
+                                                <ul className="mb-0">
+                                                    {Object.entries(validationError).map(([key, value]) => (
+                                                        <li key={key}>{value}</li>
+                                                    ))}
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
-                            <Form onSubmit={updateProduct}>
-                                <Row className='mt-2'>
-                                    <Col>
-                                        <Form.Group controlId='Name'>
-                                        <Form.Label>Title</Form.Label>
-                                        <Form.Control type='text' value={title} onChange={(event) => {setTitle(event.target.value)}}/>  
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-                                <Row className='mt-2'>
-                                    <Col>
-                                        <Form.Group controlId='Description'>
-                                        <Form.Label>Description</Form.Label>
-                                        <Form.Control as="textarea" rows="5" value={description} onChange={(event) => {setDescription(event.target.value)}}/>  
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-                                <Row className='mt-2'>
-                                    <Col>
-                                        <Form.Group controlId='Price'>
-                                        <Form.Label>Price (THB)</Form.Label>
-                                        <Form.Control type="number" value={price} onChange={(event) => {setPrice(event.target.value)}}/>  
-                                        </Form.Group>
-                                    </Col>
-                                    <Col>
-                                        <Form.Group controlId='Discount'>
-                                        <Form.Label>Discount (%)</Form.Label>
-                                        <Form.Control type="number" step="0.01" min={0} max={100} value={discount} onChange={(event) => {setDiscount(event.target.value)}}/>  
-                                        
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-                                <Row className='mt-2'>
-                                    <Col>
-                                        <Form.Group controlId='image'>
-                                        <Form.Label>Image</Form.Label>
-                                        <Form.Control type='file' onChange={changeHandler} />  
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-                                <Button variant="primary" className="mt-3 btn-block w-100" type="submit"><i className="bi bi-save"></i> UPDATE</Button>
-                            </Form>
+                                )}
+                                <Form onSubmit={updateProduct}>
+                                    <Row className='mt-2'>
+                                        <Col>
+                                            <Form.Group controlId='Name'>
+                                                <Form.Label>Title</Form.Label>
+                                                <Form.Control type='text' value={title} onChange={(event) => { setTitle(event.target.value) }} />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                    <Row className='mt-2'>
+                                        <Col>
+                                            <Form.Group controlId='Description'>
+                                                <Form.Label>Description</Form.Label>
+                                                <Form.Control as="textarea" rows="5" value={description} onChange={(event) => { setDescription(event.target.value) }} />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                    <Row className='mt-2'>
+                                        <Col>
+                                            <Form.Group controlId='Price'>
+                                                <Form.Label>Price (THB)</Form.Label>
+                                                <Form.Control type="number" value={price} onChange={(event) => { setPrice(event.target.value) }} />
+                                            </Form.Group>
+                                        </Col>
+                                        <Col>
+                                            <Form.Group controlId='Discount'>
+                                                <Form.Label>Discount (%)</Form.Label>
+                                                <Form.Control type="number" step="0.01" min={0} max={100} value={discount} onChange={(event) => { setDiscount(event.target.value) }} />
+
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                    <Row className='mt-2'>
+                                        <Col>
+                                            <Form.Group controlId='image'>
+                                                <Form.Label>Image</Form.Label>
+                                                <Form.Control type='file' onChange={changeHandler} />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                    <Button variant="primary" className="mt-3 btn-block w-100" type="submit"><i className="bi bi-save"></i> UPDATE</Button>
+                                </Form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className='col-lg-6 col-xl-6 col-sm-12 col-md-6'>
-                <div className="card shadow h-100">
-                    <div className="card-header">
-                    Current image
+                <div className='col-lg-6 col-xl-6 col-sm-12 col-md-6'>
+                    <div className="card shadow h-100">
+                        <div className="card-header">
+                            Current image
+                        </div>
+                        <div className="card-body d-flex align-items-center justify-content-center">
+                            {/* <img className='img-fluid rounded' loading='lazy' src={cImageName} alt="" /> */}
+                            {loading ? (
+                                <div className='text-center'>
+                                <img src="/image/bocchi-the-rock-spinning.gif" className='img-fluid' style={{ maxHeight: "200px" }} />
+                                <br />
+                                <p>Loading...</p>
+                                </div>
+                            ) : (
+                                cImageName !== null ? (
+                                    <img className='img-fluid rounded' loading='lazy' src={cImageName} alt="" />
+                                ) : (
+                                    <div>No image available</div>
+                                )
+                            )}
+                        </div>
                     </div>
-                    <div className="card-body d-flex align-items-center">
-                    <img className='img-fluid rounded' loading='lazy' src={cImageName} alt="" />
-                    </div>
+
                 </div>
-                
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default EditProduct
