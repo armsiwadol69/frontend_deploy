@@ -60,7 +60,7 @@ function Shop() {
           products.map((row, key) => (
             <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12' key={key}>
               <div className='card shadow h-100'>
-                <img className='card-img-top shopImageCard' loading="lazy" src={`http://127.0.0.1:8000/storage/product/image/${row.image}`} alt="" />
+                <img className='card-img-top shopImageCard' loading="lazy" src={`https://jacknboybackend.000webhostapp.com/storage/product/image/${row.image}`} alt="" />
                 <div className="card-body d-flex flex-column">
                   <h5 className="card-title fw-bold">{row.title}</h5>
                   <p className="card-text text-break fixNewline ms-1">{row.description}</p>

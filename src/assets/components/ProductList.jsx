@@ -111,7 +111,7 @@ export default function ProductList() {
                                                     <td className='textDesOverflow w-25 fixNewline'>{row.description}</td>
                                                     <td><span className='fw-bold'>{calculateDiscountedPrice(row.price, row.discount)}THB </span> <br />	&lt;- {row.price}THB</td>
                                                     <td>{row.discount}%</td>
-                                                    <td><img className='img-fluid itemImageTable' loading="lazy" src={`http://127.0.0.1:8000/storage/product/image/${row.image}`} alt="" /></td>
+                                                    <td><img className='img-fluid itemImageTable' loading="lazy" src={`https://jacknboybackend.000webhostapp.com/storage/product/image/${row.image}`} alt="" /></td>
                                                     <td>
                                                         <div className="row">
                                                             <div className="col-12 my-1">
