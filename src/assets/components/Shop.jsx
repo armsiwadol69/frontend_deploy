@@ -4,6 +4,8 @@ import { Button } from 'react-bootstrap'
 import { Spinner } from 'react-bootstrap';
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 function Shop() {
@@ -16,6 +18,7 @@ function Shop() {
   };
 
   useEffect(() => {
+    AOS.init();
     fetchProducts();
   }, []);
 
@@ -58,9 +61,9 @@ function Shop() {
       <div className="row gx-2 gy-2">
         {products.length > 0 ? (
           products.map((row, key) => (
-            <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12' key={key}>
+            <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12' data-aos="fade-up" key={key}>
               <div className='card shadow h-100'>
-                <img className='card-img-top shopImageCard' loading="lazy" src={`https://jacknboybackend.000webhostapp.com/storage/product/image/${row.image}`} alt="" />
+                <img className='card-img-top shopImageCard' src={`https://jacknboybackend.000webhostapp.com/storage/product/image/${row.image}`} alt="" />
                 <div className="card-body d-flex flex-column">
                   <h5 className="card-title fw-bold">{row.title}</h5>
                   <p className="card-text text-break fixNewline ms-1">{row.description}</p>
@@ -81,7 +84,10 @@ function Shop() {
             // </tr>
           ))
         ) : (
-          <div className='text-center w-100'><Spinner animation="border" variant="primary" /> <br /> Loading... </div>
+          <div className='text-center w-100'>
+            <img src="/image/bocchi-the-rock-spinning.gif" className='img-fluid' style={{maxHeight:"100px"}}/> <br />
+            {/* <Spinner animation="border" variant="primary" />  */}
+            <br /> Loading... </div>
         )}
       </div>
     </div>

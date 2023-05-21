@@ -43,6 +43,7 @@ function App() {
           </Col>
           <Col className='text-center my-2'>
             <p>Simple CRUD wep app project for study React.js as Frontend and Laravel as Backend.</p>
+            <p>Because I use free hosting to run the API, symlinks and DELETE do not work. That's why uploading an image in the edit and delete item functions does not work.</p>
           </Col>
         </Row>
       </Container>

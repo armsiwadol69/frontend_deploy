@@ -111,7 +111,7 @@ export default function ProductList() {
                                                     <td className='textDesOverflow w-25 fixNewline'>{row.description}</td>
                                                     <td><span className='fw-bold'>{calculateDiscountedPrice(row.price, row.discount)}THB </span> <br />	&lt;- {row.price}THB</td>
                                                     <td>{row.discount}%</td>
-                                                    <td><img className='img-fluid itemImageTable rounded' loading="lazy" src={`https://jacknboybackend.000webhostapp.com/storage/product/image/${row.image}`} alt="" /></td>
+                                                    <td><img className='img-fluid itemImageTable rounded' src={`https://jacknboybackend.000webhostapp.com/storage/product/image/${row.image}`} alt="" /></td>
                                                     <td>
                                                         <div className="row">
                                                             <div className="col-12 my-1">
@@ -128,8 +128,12 @@ export default function ProductList() {
                                             ))
                                         ) : (
                                             <tr>
-                                                <td colSpan={'6'}>   <Spinner animation="border" variant="primary" /> <br /> Loading... </td>
-
+                                                <td colSpan={'6'}>   
+                                                <img src="image/bocchi-the-rock-spinning.gif" className='img-fluid' style={{maxHeight:"100px"}}/> <br />
+                                                {/* <Spinner animation="border" variant="primary" />  */}
+                                                <br />
+                                                Loading... 
+                                                </td>
                                             </tr>
                                         )}
                                     </tbody>
