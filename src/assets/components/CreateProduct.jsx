@@ -3,7 +3,6 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
-import { event } from 'jquery'
 
 
 function CreateProduct() {
