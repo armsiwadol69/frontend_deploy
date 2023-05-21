@@ -31,7 +31,7 @@ function EditProduct() {
             setPrice(price);
             setDiscount(discount);
             setImage(image);
-            setCurrentImage(`http://127.0.0.1:8000/storage/product/image/`+image);
+            setCurrentImage(`https://jacknboybackend.000webhostapp.com/storage/product/image/`+image);
         
             
         }).catch(({response:{data}}) => {
