@@ -10,7 +10,7 @@ import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
-import ProductList from './assets/components/productList'
+import ProductList from './assets/components/ProductList'
 import CreateProduct from './assets/components/CreateProduct'
 import EditProduct from './assets/components/EditProduct'
 import Shop from './assets/components/Shop'
