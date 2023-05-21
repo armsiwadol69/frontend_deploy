@@ -41,6 +41,9 @@ function App() {
               <Route path='/product/shop' element={<Shop/>} />
             </Routes>
           </Col>
+          <Col className='text-center my-2'>
+            <p>Simple CRUD wep app project for study React.js as Frontend and Laravel as Backend.</p>
+          </Col>
         </Row>
       </Container>
     </Router>
