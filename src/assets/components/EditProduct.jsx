@@ -3,7 +3,6 @@ import { Form, Button, Row, Col, Card } from 'react-bootstrap'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useNavigate, useParams } from 'react-router-dom'
-import { data } from 'jquery'
 
 function EditProduct() {
 
