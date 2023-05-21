@@ -14,12 +14,16 @@
 }
 
 .shopImageCard{
-  transition: transform .4s; /* Animation */
+  transition: transform .6s; /* Animation */
+  -webkit-animation-fill-mode: initial; 
+  animation-fill-mode: initial;
+  transition-timing-function:cubic-bezier(.17,.67,.83,.67);
 }
 
 .shopImageCard:hover{
   transform: scale(1.3);
   z-index: 9999;
+  position: relative;
 }
 
 .fixNewline{
@@ -30,3 +34,4 @@
   overflow: hidden;
   text-overflow: ellipsis; 
 }
+

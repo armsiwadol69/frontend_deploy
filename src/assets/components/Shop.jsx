@@ -61,7 +61,7 @@ function Shop() {
       <div className="row gx-2 gy-2">
         {products.length > 0 ? (
           products.map((row, key) => (
-            <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12' data-aos="fade-up" key={key}>
+            <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12' key={key}>
               <div className='card shadow h-100'>
                 <img className='card-img-top shopImageCard' src={`https://jacknboybackend.000webhostapp.com/storage/product/image/${row.image}`} alt="" />
                 <div className="card-body d-flex flex-column">
